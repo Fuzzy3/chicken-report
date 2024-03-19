@@ -1,0 +1,14 @@
+<div class="day">
+  {{report?.date | dateToDay}}
+</div>
+<div class="details">
+  <span>
+    Eggs: {{report?.layedEggs}}
+  </span>
+  @if(report?.foodReport) {
+    <span class="refilled">
+      Refill
+      <input type="checkbox" readonly checked="true">
+    </span>
+  }
+</div>
