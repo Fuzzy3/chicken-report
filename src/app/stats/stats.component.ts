@@ -5,12 +5,14 @@ import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { Report } from '../model/report.model';
 import { AppUtil } from '../util/app-util';
 import { LAND_OG_FRITID } from '../constant/constants';
+import { MatChipsModule } from '@angular/material/chips';
+
 
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [AsyncPipe, DecimalPipe],
+  imports: [AsyncPipe, DecimalPipe, MatChipsModule],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss'
 })

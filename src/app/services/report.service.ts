@@ -57,7 +57,7 @@ export class ReportService {
           report.date = new Date(Date.parse(report.date));
         }
       });
-      return parsedReports;
+      return parsedReports.sort(AppUtil.compareReportsByDate);
     }
     return [];
   }

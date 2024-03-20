@@ -12,12 +12,13 @@ import { FoodService } from './services/food.service';
 import { DAYS } from './constant/constants';
 import { WeekNumberPipe } from './pipe/week-number.pipe';
 import { FormsModule } from '@angular/forms';
+import { MenuTabsComponent } from './menu-tabs/menu-tabs.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReportItemComponent, UploadReportsFileComponent, AsyncPipe, StatsComponent, WeekNumberPipe, FormsModule ],
+  imports: [RouterOutlet, ReportItemComponent, UploadReportsFileComponent, AsyncPipe, StatsComponent, WeekNumberPipe, FormsModule, MenuTabsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -45,7 +46,7 @@ export class AppComponent {
   
   isNewWeek(stringDate: Date) {
     const date = new Date(stringDate);
-    return date.getDay() === 1;
+    return date.getDay() === 0;
   }
 
 }

@@ -15,7 +15,7 @@ export class AppUtil {
   }
 
   public static compareReportsByDate(a: Report, b: Report): number {
-    return AppUtil.compareDates(a.date, b.date);
+    return AppUtil.compareDates(b.date, a.date);
   }
 
   public static roundToTwoDecimals(value: number): number {
@@ -24,8 +24,8 @@ export class AppUtil {
 
   public static avgDaysBetweenFoodRefill(reportsWithFoodRefill: Report[]): number {
       if(reportsWithFoodRefill.length > 1) {
-        const firstReport = reportsWithFoodRefill[0];
-        const lastReport = reportsWithFoodRefill[reportsWithFoodRefill.length-1];
+        const lastReport = reportsWithFoodRefill[0];
+        const firstReport = reportsWithFoodRefill[reportsWithFoodRefill.length-1];
         
         const daysBetweenFirstAndLastReport = AppUtil.daysBetween(lastReport.date, firstReport.date);
         return daysBetweenFirstAndLastReport / (reportsWithFoodRefill.length - 1)

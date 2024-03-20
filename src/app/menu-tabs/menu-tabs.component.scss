@@ -1,0 +1,23 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  ::ng-deep {
+    .mat-mdc-tab-body-wrapper {
+      height: 100%;
+      padding: 12px;
+    }
+  }
+}
+
+
+.example-tab-icon {
+  margin-right: 8px;
+}
+
+mat-tab-group {
+  height: 100%;
+  display: flex;
+}

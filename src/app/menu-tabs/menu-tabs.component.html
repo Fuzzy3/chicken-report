@@ -1,0 +1,28 @@
+<mat-tab-group headerPosition="below">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">add</mat-icon>
+      New
+    </ng-template>
+    <ng-content select="[daily-report]"></ng-content>
+
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">history</mat-icon>
+      History
+    </ng-template>
+    <ng-content select="[history]"></ng-content>
+
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">bar_chart</mat-icon>
+      Stats
+    </ng-template>
+    <ng-content select="[stats]"></ng-content>
+
+  </mat-tab>
+</mat-tab-group>
