@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FileService } from '../services/file.service';
+import { ReportService } from '../services/report.service';
+
 
 @Component({
   selector: 'app-upload-reports-file',
@@ -9,13 +11,14 @@ import { FileService } from '../services/file.service';
   styleUrl: './upload-reports-file.component.scss'
 })
 export class UploadReportsFileComponent {
+
   
     @ViewChild('fileUpload')
     fileUpload: ElementRef;
 
     file: File | undefined;
 
-    constructor(private fileService: FileService) {
+    constructor(private fileService: FileService, private reportService: ReportService) {
       
     }
   
@@ -31,6 +34,10 @@ export class UploadReportsFileComponent {
         this.fileService.uploadReportsFile(this.file);
         this.fileUpload.nativeElement.value = '';
       }
+    }
+
+    saveReports() {
+      this.fileService.downloadReports(this.reportService.getReports());  
     }
 
   }

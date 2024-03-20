@@ -27,7 +27,7 @@ export class FileService {
     }
   }
 
-  downloadReports(reports: Report[]) {
+  downloadReports(reports: ReadonlyArray<Report>) {
     const jsonReports = JSON.stringify(reports);
     this.downloadFileNow(jsonReports, 'reports.json', 'text/json');
   }

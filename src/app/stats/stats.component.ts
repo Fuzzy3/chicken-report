@@ -37,7 +37,7 @@ export class StatsComponent {
       map(reports => reports.map(singleReport => singleReport.layedEggs)),
       map(layedEggs => {
         const sum = layedEggs.reduce((prev, next) => prev + next, 0);
-        return sum/layedEggs.length+1;
+        return sum/layedEggs.length;
       }),
       map(avgEggs => AppUtil.roundToTwoDecimals(avgEggs))
     );

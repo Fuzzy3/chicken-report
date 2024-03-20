@@ -21,3 +21,8 @@ mat-tab-group {
   height: 100%;
   display: flex;
 }
+
+::ng-deep .mdc-tab.mat-mdc-tab {
+  padding-left: 12px;
+  padding-right: 12px;
+}
