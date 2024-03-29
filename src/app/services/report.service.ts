@@ -4,6 +4,7 @@ import { FlockDetails } from '../model/flock-details.model';
 import { Report } from '../model/report.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AppUtil } from '../util/app-util';
+import { FlockService } from './flock-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,8 @@ export class ReportService {
 
   private readonly ID = "EGGS_ID";
   private reports$: BehaviorSubject<ReadonlyArray<Report>> = new BehaviorSubject<ReadonlyArray<Report>>([]); 
-
-  currentFlock: FlockDetails = {
-    numberOfHen: 20,
-    numberOfRoosters: 1
-  }
   
-  constructor(private fileService: FileService, @Inject(LOCALE_ID) private locale: string) {
+  constructor(private fileService: FileService, @Inject(LOCALE_ID) private locale: string, private flockService: FlockService) {
     const persistedReports = this.getReportsFromLocalStorage();
     if(persistedReports?.length > 0) {
       this.reports$.next(persistedReports);
@@ -28,18 +24,18 @@ export class ReportService {
   }
 
 
-  submitReport(eggCounter: number, refillFood: boolean) {
-    const existingDailyReport = this.reports$.getValue().find(report => report.id === AppUtil.generateId(this.locale));
-    const newReport = AppUtil.generateNewReport(AppUtil.generateId(this.locale), eggCounter, this.currentFlock);
-    if (refillFood) {
-      newReport.foodReport = AppUtil.generateRefillFoodReport();
-    }
-    let newReports: Report[];
-    if(existingDailyReport) {
-      newReports = [...this.reports$.getValue().filter(report => report.id !== existingDailyReport.id), newReport];
+  submitReport(reportToSubmit: Report) {
+    let newReports: Report[] = [...this.getReports()];
+    if(!reportToSubmit.id) {
+      reportToSubmit.id = AppUtil.generateId(this.locale);
+      newReports.push(reportToSubmit);
     } else {
-      newReports = [...this.reports$.getValue(), newReport];
+      const existingDailyReport = this.reports$.getValue().find(report => report.id === reportToSubmit.id);
+      if(existingDailyReport) {
+        newReports = [...newReports.filter(report => report.id !== existingDailyReport.id), reportToSubmit];
+      }
     }
+    
     this.setReports(newReports);
   }
 
@@ -78,5 +74,9 @@ export class ReportService {
     if(saveToFile) {
       this.fileService.downloadReports(updatedReports);  
     }
+  }
+
+  getTodaysReport(): Report | undefined {
+    return this.getReports().find(report => report.id = AppUtil.generateId(this.locale));
   }
 }

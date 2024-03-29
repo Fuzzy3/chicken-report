@@ -1,0 +1,30 @@
+@import "colors.scss";
+
+:host {
+  background-color: $terracotta;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: $light-beige !important;
+}
+
+::ng-deep {
+  .mdc-button__label {
+    color: $light-beige;
+  }
+
+  mat-checkbox:not(.mat-mdc-checkbox-checked) {
+    .mdc-checkbox__background {
+      border-color: $light-beige !important;
+    }
+  }
+
+
+}
+
+
+.count-buttons {
+  display: flex;
+
+}

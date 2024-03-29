@@ -8,7 +8,10 @@
   @if(report?.foodReport) {
     <span class="refilled">
       Refill
-      <input type="checkbox" readonly checked="true">
+      <input type="checkbox" readonly (click)="false" checked="true">
     </span>
   }
+  <div class="filler"></div>
+  <button mat-icon-button (click)="editReport()"><mat-icon>edit</mat-icon></button>
+
 </div>

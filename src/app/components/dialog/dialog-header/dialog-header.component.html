@@ -1,0 +1,8 @@
+<span class="app-dialog-title">{{dialogTitle}}</span>
+<ng-content></ng-content>
+<div class="filler"></div>
+@if (showClose) {
+  <button mat-icon-button (click)="close()" [disableRipple]="true">
+      <mat-icon>close</mat-icon>
+  </button>
+}

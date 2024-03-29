@@ -1,7 +1,7 @@
 import { Report } from '../model/report.model';
 import { formatDate } from '@angular/common';
 import { FoodReport } from '../model/food-report.model';
-import { LAND_OG_FRITID } from '../constant/constants';
+import { DAYS, LAND_OG_FRITID } from '../constant/constants';
 import { FlockDetails } from '../model/flock-details.model';
 
 
@@ -34,11 +34,20 @@ export class AppUtil {
       return 0;
   }
 
-  public static generateNewReport(id: string, eggCounter: number, currentFlock: FlockDetails): Report {
+  public static generateReport(id: string, eggCounter: number, currentFlock: FlockDetails): Report {
     const newReport: Report = {
       id,
       date: new Date(),
       layedEggs: eggCounter, 
+      flockDetails: { ...currentFlock }
+    }
+    return newReport;
+  }
+
+  public static generateNewReport(currentFlock: FlockDetails): Report {
+    const newReport: Report = {
+      date: new Date(),
+      layedEggs: 0, 
       flockDetails: { ...currentFlock }
     }
     return newReport;
@@ -50,5 +59,9 @@ export class AppUtil {
 
   public static generateId(locale: string): string {
     return formatDate(Date.now(), 'dd-MM-yyyy', locale);
+  }
+
+  public static dateToDay(date: Date) {
+    return DAYS[new Date(date).getDay()].substring(0,3);
   }
 }

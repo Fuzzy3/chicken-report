@@ -1,0 +1,14 @@
+<h2>Reports</h2>
+<div class="container">
+  @for (report of reports$ | async ; track report.id;  let first = $first) {
+    @if (isNewWeek(report.date) || first) {
+      <p class="report-week">Week {{report.date | weekNumber}}</p>
+    }
+    <app-report-item class="report-row" [report]="report"></app-report-item>
+  }
+</div>
+<div class="filler"></div>
+<div class="row">
+  <div class="filler"></div>
+  <button mat-icon-button (click)="newReport()"><mat-icon color="primary">add</mat-icon></button>
+</div>

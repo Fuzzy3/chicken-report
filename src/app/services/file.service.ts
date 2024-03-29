@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Report } from '../model/report.model';
 import { Subject, retry } from 'rxjs';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { ReportService } from './report.service';
+import { state } from '@angular/animations';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +18,31 @@ export class FileService {
 
   downloadFileNow(data: string, filename: string, type: string) {
     const blob = new Blob([data], { type: type });
-    console.log('save');
-    if ((window.navigator as any).msSaveOrOpenBlob) {
-      (window.navigator as any).msSaveBlob(blob, filename);
-    } else {
-      const link = document.createElement('a');
-      link.setAttribute('href', URL.createObjectURL(blob));
-      link.setAttribute('download', filename);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    Filesystem.checkPermissions().then(status => {
+      console.log(status);
+      if(status as any === 'granted') {
+        
+      }
+    })
+
+    this.writeFile(blob, filename).then((response => console.log(response))); 
+
   }
 
+  private async writeFile(data: Blob, filename: string) {
+    return await Filesystem.writeFile({
+      path: filename,
+      data: data,
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8,
+    });
+  };
+
   downloadReports(reports: ReadonlyArray<Report>) {
+    console.log('REPORTS', reports);
     const jsonReports = JSON.stringify(reports);
+    console.log('REPORTS as json', jsonReports);
+
     this.downloadFileNow(jsonReports, 'reports.json', 'text/json');
   }
 

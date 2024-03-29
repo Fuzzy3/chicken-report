@@ -1,57 +1,11 @@
 $tabs-height: 48px;
 
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
 :host {
   display: flex;
   justify-content: center;
   flex-direction: column;
   height: 100%;
   width: 100%;
-}
-
-app-report-item {
-  margin-block-end: 4px;
-  &:last-child {
-    margin-block-end: 0px;
-  }
-}
-
-.item {
-  background-color: lightcoral;
-  padding: 8px;
-  margin-bottom: 8px;
-  border-radius: 4px;
-  width: calc(100% - 16px);
-  min-height: 24px;
-  display: flex;
-  align-items: center;
-  &.large {
-    height: 48px;
-  }
-}
-
-.count-button {
-  width: 32px;
-  height: 32px;
-  &.first {
-    margin-inline-end: 16px;
-  }
-}
-
-.count-buttons {
-  height: 48px;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.text {
-  margin-inline-end: 16px;
 }
 
 .content {
@@ -73,22 +27,3 @@ app-report-item {
   right: 0;
 }
 
-::ng-deep mat-chip {
-  &.medium {
-    width: 48px;
-  }
-  &.large {
-    width: 72px;
-  }
-  &.center {
-    justify-content: center;
-  }
-  
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
-.report-week {
-  line-height: 0;
-  margin-top: 24px;
-}

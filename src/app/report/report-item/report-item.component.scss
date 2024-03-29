@@ -1,29 +1,32 @@
+@import 'colors.scss';
+
 :host {
   display: flex;
   height: 36px;
   width: 100%;
   flex-direction: row;
   align-items: center;
-  background-color: lightcoral;
-  border-radius: 4px;
 }
 
 .day {
   height: 100%;
-  width: 100px;
+  width: 70px;
   display: flex;
   align-items: center;
-  padding-inline-start: 12px;
+  font-style: italic;
 }
 
 .details {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding-inline-start: 8px;
-  padding-inline-end: 4px;
 }
 
 .refilled {
+  margin-inline-start: 8px;
+}
+
+mat-icon {
+  color: #595959 !important;
 }

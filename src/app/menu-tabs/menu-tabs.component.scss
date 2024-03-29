@@ -12,6 +12,9 @@
   }
 }
 
+::ng-deep .mdc-tab {
+  max-width: 50%;
+}
 
 .example-tab-icon {
   margin-right: 8px;

@@ -1,10 +1,7 @@
 
 
 .item {
-  background-color: lightcoral;
   padding: 8px;
-  margin-bottom: 8px;
-  border-radius: 4px;
   width: calc(100% - 16px);
   min-height: 24px;
   display: flex;
@@ -13,4 +10,8 @@
     height: 48px;
   }
  
+}
+
+.chip-container {
+  width: 85px;
 }

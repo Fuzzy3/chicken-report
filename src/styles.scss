@@ -1,30 +1,17 @@
+@import 'colors.scss';
 /* You can add global styles to this file, and also import other style files */
-$background: #424242;
-$font-color: #ffffffb3;
-$font-size: 12px;
-$font-weight: 400;
-$line-height: 28px;
 
 
-html, body { height: 100%; background-color: $background;}
+
+html, body { height: 100%; background-color: $muted-teal;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
-
-
 .background {
-  background-color: $background;
+  background-color: $muted-teal;
 }
 
-h1,h2,h3,h4,p, span, div {
-  color: $font-color;
-  font-weight: $font-weight;
-  line-height: $line-height;
-  &.contrast {
-    color: darkgrey;
-  }
-}
 
 mat-chip.center {
   .mdc-evolution-chip__cell {
@@ -34,14 +21,7 @@ mat-chip.center {
 
 .tabs {
   mat-tab-header {
-    background-color: #ff655a;
+    background-color: $terracotta;
   }
 }
-
-.filler {
-  flex-grow: 1;
- 
-}
-
-
 

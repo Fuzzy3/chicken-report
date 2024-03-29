@@ -48,6 +48,7 @@ export class StatsComponent {
     );
 
     this.pricePerEgg$ = combineLatest([this.averageEggsPerDay$, this.avgDaysBetweenFoodRefill$]).pipe(
+      filter(([avgEggsPerDay, avgDaysBetweenFoodRefill]) => avgDaysBetweenFoodRefill > 0 && avgEggsPerDay > 0),
       map(([avgEggsPerDay, avgDaysBetweenFoodRefill]) => AppUtil.roundToTwoDecimals(LAND_OG_FRITID.PRICE_OF_NATURAEG / (avgEggsPerDay * avgDaysBetweenFoodRefill)))
     );
   }

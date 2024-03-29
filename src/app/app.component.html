@@ -6,38 +6,8 @@
     <app-stats></app-stats>
   </div>
 
-  //Daily Report
-  <div class="content" daily-report>
-    <h2>Daily Report</h2>
-    <div class="item large">
-      <span class="text"> Eggs: {{eggCounter}}</span>
-      <div class="count-buttons">
-        <button class="count-button first" (click)="addEggs(1)">+</button>
-        <button class="count-button" (click)="addEggs(-1)">-</button>
-      </div>
-    </div>
-    <div class="item">
-      <input type="checkbox" [(ngModel)]="refillFood" id="refill-food" name="refill-food">
-      <label for="refill-food">Food refilled</label>
-    </div>
-    <div class="item">
-      <button  (click)="submitEggs()">Submit daily report</button>
-    </div>
-    <div class="item">
-      <app-upload-reports-file></app-upload-reports-file>
-    </div>
-  </div>
-
   //History
   <div class="content" history> 
-    <h2>Reports</h2>
-    <div class="container">
-      @for (report of reports$ | async ; track report.id;  let first = $first) {
-        @if (isNewWeek(report.date) || first) {
-          <p class="report-week">Week {{report.date | weekNumber}}</p>
-        }
-        <app-report-item [report]="report"></app-report-item>
-      }
-    </div>
+    <app-reports></app-reports>
   </div>
 </app-menu-tabs>

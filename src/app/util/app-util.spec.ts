@@ -30,7 +30,7 @@ describe('AppUtil', () => {
     date14daysAgo.setDate(date14daysAgo.getDate()-14);
 
     const report1: Report = {
-      ...AppUtil.generateNewReport('1', 5, currentFlock),
+      ...AppUtil.generateReport('1', 5, currentFlock),
       date: date14daysAgo,
       foodReport
     }
@@ -39,7 +39,7 @@ describe('AppUtil', () => {
     date7daysAgo.setDate(date7daysAgo.getDate()-7);
 
     const report2: Report = {
-      ...AppUtil.generateNewReport('2', 6, currentFlock),
+      ...AppUtil.generateReport('2', 6, currentFlock),
       date: date7daysAgo,
       foodReport
     }
@@ -47,7 +47,7 @@ describe('AppUtil', () => {
     const dateToday: Date = new Date();
 
     const report3: Report = {
-      ...AppUtil.generateNewReport('3', 7, currentFlock),
+      ...AppUtil.generateReport('3', 7, currentFlock),
       date: dateToday,
       foodReport
     }

@@ -1,24 +1,32 @@
-<div class="item">
-  <mat-chip class="center large">
-    {{ totalEggs$ | async}}
-  </mat-chip>
+<div class="item row">
+  <div class="chip-container">
+    <mat-chip class="center large">
+      {{ totalEggs$ | async}}
+    </mat-chip>
+  </div>
   Total eggs
 </div>
-<div class="item">
-  <mat-chip class="center large">
-    {{ averageEggsPerDay$ | async }}
-  </mat-chip>
+<div class="item row">
+  <div class="chip-container">
+    <mat-chip class="center large">
+      {{ averageEggsPerDay$ | async }}
+    </mat-chip>
+  </div>
   Daily eggs on average
 </div>
-<div class="item">
-  <mat-chip class="center large">
-    {{ pricePerEgg$ | async }} kr.
-  </mat-chip>
+<div class="item row">
+  <div class="chip-container">
+    <mat-chip class="center large">
+      {{ pricePerEgg$ | async }} kr.
+    </mat-chip>
+  </div>
   Per egg on average
 </div>
-<div class="item">
-  <mat-chip class="center large" >
-    {{ avgDaysBetweenFoodRefill$ | async }}
-  </mat-chip>
+<div class="item row" >
+  <div class="chip-container">
+    <mat-chip class="center large" >
+      {{ avgDaysBetweenFoodRefill$ | async }}
+    </mat-chip>
+  </div>
   Days between food refills on average
 </div>
