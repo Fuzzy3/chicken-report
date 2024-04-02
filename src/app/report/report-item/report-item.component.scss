@@ -6,14 +6,16 @@
   width: 100%;
   flex-direction: row;
   align-items: center;
+  &.editing {
+    background-color: $primary;
+  }
 }
 
-.day {
+.eggs {
   height: 100%;
   width: 70px;
   display: flex;
   align-items: center;
-  font-style: italic;
 }
 
 .details {
@@ -24,9 +26,17 @@
 }
 
 .refilled {
-  margin-inline-start: 8px;
+  font-style: italic;
 }
 
 mat-icon {
   color: #595959 !important;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  
 }

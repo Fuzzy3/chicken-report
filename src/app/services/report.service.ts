@@ -77,6 +77,11 @@ export class ReportService {
   }
 
   getTodaysReport(): Report | undefined {
-    return this.getReports().find(report => report.id = AppUtil.generateId(this.locale));
+    return this.getReports().find(report => report.id === AppUtil.generateId(this.locale));
+  }
+
+
+  public getLocale(): string {
+    return this.locale;
   }
 }

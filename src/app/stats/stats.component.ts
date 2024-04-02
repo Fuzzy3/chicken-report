@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { ReportService } from '../services/report.service';
-import { Observable, combineLatest, filter, first, map, of, share, shareReplay, tap } from 'rxjs';
+import { Observable, combineLatest, filter, map, of, shareReplay } from 'rxjs';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { Report } from '../model/report.model';
 import { AppUtil } from '../util/app-util';
 import { LAND_OG_FRITID } from '../constant/constants';
 import { MatChipsModule } from '@angular/material/chips';
+import { CountComponent } from '../components/count/count.component';
+import { StatsRowComponent } from '../components/stats-row/stats-row.component';
+import { FlockService } from '../services/flock-service.service';
 
 
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [AsyncPipe, DecimalPipe, MatChipsModule],
+  imports: [AsyncPipe, DecimalPipe, MatChipsModule, CountComponent, StatsRowComponent],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss'
 })
@@ -22,8 +24,9 @@ export class StatsComponent {
   averageEggsPerDay$: Observable<number> = of(0);
   pricePerEgg$: Observable<number> = of(0);
   avgDaysBetweenFoodRefill$: Observable<number> = of(0);
+  weightPerChickenPerDay$: Observable<number> = of(0);
 
-  constructor(reportService: ReportService) {
+  constructor(reportService: ReportService, flockService: FlockService) {
     const reports$ = reportService.getReports$().pipe(
       shareReplay(1)
     );
@@ -51,6 +54,12 @@ export class StatsComponent {
       filter(([avgEggsPerDay, avgDaysBetweenFoodRefill]) => avgDaysBetweenFoodRefill > 0 && avgEggsPerDay > 0),
       map(([avgEggsPerDay, avgDaysBetweenFoodRefill]) => AppUtil.roundToTwoDecimals(LAND_OG_FRITID.PRICE_OF_NATURAEG / (avgEggsPerDay * avgDaysBetweenFoodRefill)))
     );
+
+    this.weightPerChickenPerDay$ = this.avgDaysBetweenFoodRefill$.pipe(
+      map(daysBetweenRefills => (AppUtil.generateRefillFoodReport().weight/(flockService.getCurrentFlock().numberOfHen + flockService.getCurrentFlock().numberOfRoosters))/daysBetweenRefills),
+      map(weightInKilos => weightInKilos * 1000),
+      map(weightInGrams => Math.round(weightInGrams))
+    )
   }
   
 }

@@ -1,0 +1,12 @@
+mat-chip {
+  margin-left: 4px;
+  margin-right: 4px;
+  &.center {
+    ::ng-deep {
+      .mdc-evolution-chip__cell {
+        justify-content: center;
+      }
+    }
+  }
+}
+

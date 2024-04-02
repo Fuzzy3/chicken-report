@@ -1,17 +1,16 @@
-<div class="day">
-  {{report?.date | dateToDay}}
-</div>
-<div class="details">
-  <span>
-    Eggs: <mat-chip class="center medium">{{report?.layedEggs}}</mat-chip>
-  </span>
-  @if(report?.foodReport) {
-    <span class="refilled">
-      Refill
-      <input type="checkbox" readonly (click)="false" checked="true">
-    </span>
-  }
-  <div class="filler"></div>
-  <button mat-icon-button (click)="editReport()"><mat-icon>edit</mat-icon></button>
-
+<div class="container" (click)="editReport()">
+  <div class="highlight eggs">
+    {{report?.layedEggs}} Egg @if(report && report.layedEggs > 1) {<span>s</span>}
+  </div>
+  <div class="details">
+    @if(report?.foodReport) {
+      <span class="refilled">
+        Refilled
+      </span>
+    }
+    <div class="filler"></div>
+    <span class="weak">
+      {{report?.date | dateToDay}}
+    </span>  
+  </div>
 </div>

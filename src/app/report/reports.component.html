@@ -1,14 +1,15 @@
-<h2>Reports</h2>
 <div class="container">
-  @for (report of reports$ | async ; track report.id;  let first = $first) {
-    @if (isNewWeek(report.date) || first) {
-      <p class="report-week">Week {{report.date | weekNumber}}</p>
+  @for (week of reportsByWeek; track week.week) {
+    <div class="row end content">
+      <p class="report-week">Week {{week.week}}</p>
+    </div>
+    @for (report of week.reports; track report.id; let first = $first ) {
+      <app-report-item class="row list" [report]="report" [class.first-in-week]="first"></app-report-item>
     }
-    <app-report-item class="report-row" [report]="report"></app-report-item>
   }
 </div>
 <div class="filler"></div>
 <div class="row">
   <div class="filler"></div>
-  <button mat-icon-button (click)="newReport()"><mat-icon color="primary">add</mat-icon></button>
+  <button mat-icon-button (click)="newReport()"><mat-icon color="accent">add</mat-icon></button>
 </div>

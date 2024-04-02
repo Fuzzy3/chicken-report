@@ -4,6 +4,7 @@ import { ReportDialogComponent } from '../report/report-dialog/report-dialog.com
 import { Report } from '../model/report.model';
 import { AppUtil } from "../util/app-util";
 import { FlockService } from './flock-service.service';
+import { Observable } from 'rxjs';
 
 
 
@@ -34,10 +35,10 @@ export class ReportDialogService {
     });
   }
 
-  editReport(report: Report) {
-    this.dialog.open(ReportDialogComponent, {
+  editReport(report: Report): Observable<any> {
+    return this.dialog.open(ReportDialogComponent, {
       ...this.STANDARD_DIALOG,
       data: report
-    });
+    }).afterClosed();
   }
 }

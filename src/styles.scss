@@ -3,13 +3,13 @@
 
 
 
-html, body { height: 100%; background-color: $muted-teal;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%; background-color: $tertiary;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 14px;}
 
 
 
 .background {
-  background-color: $muted-teal;
+  background-color: $tertiary;
 }
 
 
@@ -21,7 +21,6 @@ mat-chip.center {
 
 .tabs {
   mat-tab-header {
-    background-color: $terracotta;
+    background-color: $primary;
   }
 }
-

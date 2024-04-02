@@ -6,6 +6,7 @@ import { FlockDetails } from '../model/flock-details.model';
 
 
 export class AppUtil {
+  
   public static daysBetween(newestDate: Date, oldestDate: Date): number {
     return Math.floor((Date.UTC(newestDate.getFullYear(), newestDate.getMonth(), newestDate.getDate()) - Date.UTC(oldestDate.getFullYear(), oldestDate.getMonth(), oldestDate.getDate()) ) /(1000 * 60 * 60 * 24));
   }
@@ -61,7 +62,40 @@ export class AppUtil {
     return formatDate(Date.now(), 'dd-MM-yyyy', locale);
   }
 
+  public static generateIdFromDate(locale: string, date: Date): string {
+    return formatDate(date, 'dd-MM-yyyy', locale);
+  }
+  
+
   public static dateToDay(date: Date) {
     return DAYS[new Date(date).getDay()].substring(0,3);
   }
+
+  public static syncIdAndDate(locale: string, reports: Report[]) {
+    reports.forEach(report => {
+      const idFromDate = AppUtil.generateIdFromDate(locale, report.date);
+      console.log('new id', idFromDate);
+      console.log('date', report.date);
+      report.id = idFromDate;
+    })
+  }
+
+  public static dateToWeekNumber(value: Date): number {
+    const date = new Date(value);
+     const dateCopy = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+     // Set to nearest Thursday: current date + 4 - current day number
+     // Make Sunday's day number 7
+     dateCopy.setUTCDate(dateCopy.getUTCDate() + 4 - (dateCopy.getUTCDay()||7));
+     // Get first day of year
+     const yearStart = new Date(Date.UTC(dateCopy.getUTCFullYear(),0,1));
+     // Calculate full weeks to nearest Thursday
+     const weekNo = Math.ceil(( ( (dateCopy.getTime() - yearStart.getTime()) / 86400000) + 1)/7);
+     // Return array of year and week number
+     return weekNo;
+  }
+
+  public static totalEggs(reports: Report[]): number {
+    return reports.map(report => report.layedEggs).reduce((prev, next) => prev + next, 0);
+  }
+
 }

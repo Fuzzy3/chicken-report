@@ -6,7 +6,7 @@ import { FlockDetails } from '../model/flock-details.model';
 })
 export class FlockService {
 
-  currentFlock: FlockDetails = {
+  private currentFlock: FlockDetails = {
     numberOfHen: 20,
     numberOfRoosters: 1
   }

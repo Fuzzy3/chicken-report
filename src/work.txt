@@ -1,0 +1,7 @@
+Bugs:
+- Font Color Tabs (Text should be darker)
+- HIGHLIGHTED close button on dialog
+
+
+Fixed: 
+- Jumping when changing tabs

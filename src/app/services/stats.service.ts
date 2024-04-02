@@ -1,9 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
+import { ReportService } from './report.service';
+import { map, tap } from 'rxjs';
+import { AppUtil } from '../util/app-util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatsService {
 
-  constructor() { }
+
+
+  constructor(private reportService: ReportService) {
+
+  }
+
+  
+
+
+  //statsByWeek
+
 }
