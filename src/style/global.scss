@@ -61,3 +61,10 @@ button[mat-icon-button] {
 .weak {
   font-weight: 50;
 }
+
+
+.mat-mdc-tab-labels .mdc-tab {
+  min-width: 24px;
+  padding-left: 0;
+  padding-right: 0;
+}

@@ -1,0 +1,69 @@
+<mat-tab-group [selectedIndex]="selected" headerPosition="below" color="accent" (selectedIndexChange)="onSelectedTabChange($event)">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div class="tab-container">
+        <img src="assets/img/magic-egg.png" class="img-icon" />
+        <span class="tab-text">
+          Tracker
+        </span>
+      </div>
+    </ng-template>
+    <div class="tab-content">
+      <ng-content select="[tracker]"></ng-content>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div class="tab-container">
+        <img src="assets/img/history.png" class="img-icon" />
+        <span class="tab-text">
+          History
+        </span>
+      </div>
+    </ng-template>
+    <div class="tab-content">
+      <ng-content select="[history]"></ng-content>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div class="tab-container" (click)="openReportDialog()">
+        <div class="track" [class.highlight]="highlightTrack">
+          <img src="assets/img/track.png" class="img-icon track" [class.highlight]="highlightTrack" />
+        </div>
+        <span class="tab-text">
+          Track
+        </span>
+      </div>
+    </ng-template>
+    <div class="tab-content">
+      <ng-content select="track"></ng-content>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div class="tab-container">
+        <img src="assets/img/analysis.png" class="img-icon" />
+        <span class="tab-text">
+          Analysis
+        </span>
+      </div>
+    </ng-template>
+    <div class="tab-content">
+      <ng-content select="[stats]"></ng-content>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div class="tab-container">
+        <img src="assets/img/chicken.png" class="img-icon" />
+        <span class="tab-text">
+          Chickens
+        </span>
+      </div>
+    </ng-template>
+    <div class="tab-content">
+      <ng-content select="[flock]"></ng-content>
+    </div>
+  </mat-tab>
+</mat-tab-group>

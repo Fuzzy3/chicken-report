@@ -1,0 +1,16 @@
+<div class="container" (click)="editReport()">
+  <div class="highlight eggs">
+    {{report?.layedEggs}} Egg @if(report && report.layedEggs > 1) {<span>s</span>}
+  </div>
+  <div class="details">
+    @if(report?.foodReport) {
+      <span class="refilled">
+        Refilled
+      </span>
+    }
+    <div class="filler"></div>
+    <span class="weak">
+      {{report?.date | dateToDay}}
+    </span>  
+  </div>
+</div>

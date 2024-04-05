@@ -1,0 +1,15 @@
+<div class="container">
+  @for (week of reportsByWeek$ | async; track week.week) {
+    <div class="row end content">
+      <p class="report-week">Week {{week.week}}</p>
+    </div>
+    @for (report of week.reports; track report.id; let first = $first ) {
+      <app-report-item class="row list" [report]="report" [class.first-in-week]="first"></app-report-item>
+    }
+  }
+  @empty {
+    <div class="empty-text">
+      Add a new report to get started
+    </div>
+  }
+</div>

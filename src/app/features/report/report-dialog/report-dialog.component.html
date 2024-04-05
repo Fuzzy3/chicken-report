@@ -1,0 +1,23 @@
+<app-dialog>
+  <app-dialog-header [dialogTitle]="reportTitle" [showClose]="true" (onClose)="close()"></app-dialog-header>
+
+  <div class="row">
+    <span class="text"> Eggs: {{report.layedEggs}}</span>
+    <div class="filler"></div>
+    <div class="count-buttons">
+      <button mat-icon-button class="count-button" (click)="addEggs(1)"><mat-icon color="accent">add</mat-icon></button>
+      <button mat-icon-button class="count-button" (click)="addEggs(-1)"><mat-icon color="accent">remove</mat-icon></button>
+    </div>
+  </div>
+  <div class="row">
+    <label for="refill-food">Food refilled</label>
+    <div class="filler"></div>
+    <mat-checkbox type="checkbox" [(ngModel)]="refillFood" id="refill-food" name="refill-food" color="accent"> </mat-checkbox>
+  </div>
+
+  <app-dialog-footer>
+    <button mat-button (click)="submitEggs()">Submit</button>
+  </app-dialog-footer>
+</app-dialog>
+
+    

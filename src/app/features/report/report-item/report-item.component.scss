@@ -1,0 +1,42 @@
+@import 'colors.scss';
+
+:host {
+  display: flex;
+  height: 36px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  &.editing {
+    background-color: $primary;
+  }
+}
+
+.eggs {
+  height: 100%;
+  width: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-inline-start: 8px;
+}
+
+.refilled {
+  font-style: italic;
+}
+
+mat-icon {
+  color: #595959 !important;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  
+}
