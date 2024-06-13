@@ -1,0 +1,10 @@
+@if (report.id) {
+    <div class="day-count" [class.today]="reportIsToday">
+        {{report.layedEggs}}
+    </div>
+}
+@else {
+    <div class="day-count" [class.today]="reportIsToday" [class.not-yet]="!reportIsToday">
+        
+    </div>
+}

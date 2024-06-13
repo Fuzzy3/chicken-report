@@ -14,15 +14,25 @@ export class TestUtil {
         for(i = 0; i < 28; i++) {
             const date = new Date();
             date.setDate(date.getDate() - i);
-            const eggs = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
-            const newReport: Report = {
-                id: AppUtil.generateIdFromDate(locale, date),
-                date,
-                layedEggs: eggs,
-                flockDetails: this.FLOCK_DETAILS_STUB,
-                foodReport: (i % 7 === 0) ? AppUtil.generateRefillFoodReport() : undefined
+            const eggs = Math.floor(Math.random() * (30 - 20 + 1)) + 20;
+            if(date.getDay() % 6 === 3) {
+                const emptyReport: Report = {
+                    date,
+                    layedEggs: 0
+                }
+                reports.push(
+                   emptyReport 
+                );
+            } else {
+                const newReport: Report = {
+                    id: AppUtil.generateIdFromDate(locale, date),
+                    date,
+                    layedEggs: eggs,
+                    flockDetails: this.FLOCK_DETAILS_STUB,
+                    foodReport: (i % 7 === 0) ? AppUtil.generateRefillFoodReport() : undefined
+                }
+                reports.push(newReport);
             }
-            reports.push(newReport);
         }
         return reports;
     }

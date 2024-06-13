@@ -1,0 +1,120 @@
+@import 'colors.scss';
+
+:host {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.count-container {
+    background-image: url("/assets/img/count-egg.png");
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coin {
+    background-image: url("/assets/img/coin.png");
+    background-size: 120px;
+    width: 120px;
+    height: 120px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 5vh;
+    right: 5vh;
+    .coin-text {
+        font-size: 18px;
+        color: #967a44;
+        font-weight: 500;
+    }
+}
+
+.prev-week .count-container {
+    height: 50px;
+    background-size: 50px;
+}
+
+.second-prev-week .count-container {
+    height: 40px;
+    background-size: 40px;
+}
+
+.week-container {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.week-container.prev-week {
+    position: absolute;
+    top: calc(50vh - 250px);
+    right: 75px;
+}
+
+.week-container.second-prev-week {
+    position: absolute;
+    top: calc(50vh - 320px);
+    right: 130px;
+}
+
+.days {
+    display: flex;
+    justify-content: center;
+}
+
+.day-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.week-day {
+    margin-top: 4px;
+    font-size: 10px;
+}
+
+.egg-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: $black;
+}
+
+.prev-week .egg-text {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.second-prev-week .egg-text {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.week-header {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.prev-week .week-header {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.second-prev-week .week-header {
+    font-size: 14px;    
+    font-weight: 500;
+}

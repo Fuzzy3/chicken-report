@@ -4,6 +4,7 @@ import { Subject, retry } from 'rxjs';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { ReportService } from './report.service';
 import { state } from '@angular/animations';
+import { NotificationService } from './notification.service';
 
 
 
@@ -14,12 +15,12 @@ export class FileService {
 
   reportsUploaded$: Subject<Report[]> = new Subject<Report[]>();
 
-  constructor() { }
+  constructor(private notificationsService: NotificationService) { }
 
   downloadFileNow(data: string, filename: string, type: string) {
     const blob = new Blob([data], { type: type });
     Filesystem.checkPermissions().then(status => {
-      console.log(status);
+      //this.notificationsService.publishObjectNotification('Permission Status', status);
       if(status as any === 'granted') {
         
       }

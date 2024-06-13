@@ -36,11 +36,11 @@ export class MenuTabsComponent implements AfterViewInit {
   }
 
   openReportDialog() {
+    this.highlightTrack = true;
     const todaysReport = this.reportService.getTodaysReport();
     if(todaysReport) {
-      this.reportDialogService.editReport(todaysReport);
+      this.reportDialogService.editReport(todaysReport).subscribe(_ => this.highlightTrack = false);
     } else {
-      this.highlightTrack = true;
       this.reportDialogService.openNewReport().subscribe(_ => this.highlightTrack = false);
     }
   }

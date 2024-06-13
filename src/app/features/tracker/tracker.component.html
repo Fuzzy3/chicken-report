@@ -1,1 +1,60 @@
-<p>tracker works!</p>
+@if (!!secondPrevWeek) {
+    <div class="week-container second-prev-week">
+        <h2 class="week-header">Week {{secondPrevWeek.week}}</h2>
+        <div class="count-container">
+            <p class="egg-text">{{secondPrevWeek.eggs}}</p>
+        </div>
+    </div>
+}
+
+@if (!!prevWeek) {
+    <div class="week-container prev-week">
+        <h2 class="week-header">Week {{prevWeek.week}}</h2>
+        <div class="count-container">
+            <p class="egg-text">{{prevWeek.eggs}}</p>
+        </div>
+    </div>
+}
+<div class="week-container">
+    <h2 class="week-header">Week {{currentWeek.week}}</h2>
+    <div class="count-container">
+        <p class="egg-text">{{currentWeek.eggs}}</p>
+    </div>
+</div>
+
+<div class="days">
+    <div class="day-container">
+        <app-day-count [report]="currentWeek.reports[6]" (click)="openReport(currentWeek.reports[6])"></app-day-count>
+        <div class="week-day">MON</div>
+    </div>
+    <div class="day-container">
+        <app-day-count [report]="currentWeek.reports[5]" (click)="openReport(currentWeek.reports[5])"></app-day-count>
+        <div class="week-day">TUE</div>
+    </div>
+    <div class="day-container">
+        <app-day-count [report]="currentWeek.reports[4]" (click)="openReport(currentWeek.reports[4])"></app-day-count>
+        <div class="week-day">WED</div>
+    </div>
+    <div class="day-container">
+        <app-day-count [report]="currentWeek.reports[3]" (click)="openReport(currentWeek.reports[3])"></app-day-count>
+        <div class="week-day">THU</div>
+    </div>
+    <div class="day-container">
+        <app-day-count [report]="currentWeek.reports[2]" (click)="openReport(currentWeek.reports[2])"></app-day-count>
+        <div class="week-day">FRI</div>
+    </div>
+    <div class="day-container">
+        <app-day-count [report]="currentWeek.reports[1]" (click)="openReport(currentWeek.reports[1])"></app-day-count>
+        <div class="week-day">SAT</div>
+    </div>
+    <div class="day-container">
+        <app-day-count [report]="currentWeek.reports[0]" (click)="openReport(currentWeek.reports[0])"></app-day-count>
+        <div class="week-day">SUN</div>
+    </div>
+</div>
+
+<div class="coin">
+    <div class="coin-text">
+        {{pricePerEgg$ | async}} kr.
+    </div>
+</div>

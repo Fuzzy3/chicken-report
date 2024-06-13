@@ -2,14 +2,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-
-html, body { height: 100%; background-color: $tertiary;}
+html, body { height: 100%; background: $background}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 14px;}
 
 
 
 .background {
-  background-color: $tertiary;
+  background: $background;
 }
 
 

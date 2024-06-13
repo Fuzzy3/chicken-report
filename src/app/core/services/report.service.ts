@@ -55,7 +55,7 @@ export class ReportService {
           report.date = new Date(Date.parse(report.date));
         }
       });
-      return [...TestUtil.generateTestReportsForFourWeeks(this.locale)].sort(AppUtil.compareReportsByDate);
+      return [...parsedReports].sort(AppUtil.compareReportsByDate);
     }
     return [];
   }
@@ -69,24 +69,15 @@ export class ReportService {
   }
 
   getReportsByWeek$(): Observable<ReportsByWeek[]> {
-    const emptyReports = this.reports$.asObservable().pipe(
-      filter(reports => !reports || reports.length === 0),
-      map(_ => [])
-    );
-
-    const reports = this.reports$.asObservable().pipe(
-      filter(reports => reports?.length > 0),
+    return this.reports$.asObservable().pipe(
       map(reports => AppUtil.reportsToWeekReports([...reports]))
     );
-
-    return merge(emptyReports, reports);
   }
 
   setReports(updatedReports: Report[], saveToFile: boolean = true) {
     updatedReports.sort(AppUtil.compareReportsByDate);
-    console.log('update and sort reports', updatedReports);
     this.reports$.next(updatedReports);
-    //this.setReportsToLocalStorage();
+    this.setReportsToLocalStorage();
     if(saveToFile) {
       this.fileService.downloadReports(updatedReports);  
     }

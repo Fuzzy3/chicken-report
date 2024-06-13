@@ -1,0 +1,30 @@
+@import 'colors.scss';
+
+:host {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+}
+
+.day-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: $egg;
+    border: solid 1px $black;
+    font-weight: 500;
+    border-radius: 50%;
+    &.not-yet {
+        border-color: transparent;
+    }
+    &.today {
+        background-color: rgba(148, 66, 0, 0.6);
+    }
+}

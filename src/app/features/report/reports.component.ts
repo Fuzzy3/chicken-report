@@ -21,14 +21,8 @@ import { ReportsByWeek } from '@core/model/reports-by-week.model';
 export class ReportsComponent {
   reportsByWeek$: Observable<ReportsByWeek[]>;
 
-
   constructor(private reportService: ReportService, private reportDialogService: ReportDialogService){
     this.reportsByWeek$ = reportService.getReportsByWeek$();
-  }
-
-  isNewWeek(stringDate: Date) {
-    const date = new Date(stringDate);
-    return date.getDay() === 0;
   }
 
 }

@@ -11,7 +11,7 @@ export class AppUtil {
   private constructor(){}
 
   public static daysBetween(newestDate: Date, oldestDate: Date): number {
-    return Math.floor((Date.UTC(newestDate.getFullYear(), newestDate.getMonth(), newestDate.getDate()) - Date.UTC(oldestDate.getFullYear(), oldestDate.getMonth(), oldestDate.getDate()) ) /(1000 * 60 * 60 * 24));
+    return Math.abs(Math.floor((Date.UTC(newestDate.getFullYear(), newestDate.getMonth(), newestDate.getDate()) - Date.UTC(oldestDate.getFullYear(), oldestDate.getMonth(), oldestDate.getDate()) ) /(1000 * 60 * 60 * 24)));
   }
 
   public static compareDates(a: Date, b: Date): number {
@@ -97,13 +97,55 @@ export class AppUtil {
      return weekNo;
   }
 
+  public static getMonday(value: Date): Date {
+    const date = new Date(value);
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    return new Date(date.setDate(diff));
+  }
+
+  public static fillWeekWithEmptyReports(reportsByWeek: ReportsByWeek, locale: string) {
+    const firstDayOfWeek: Date = AppUtil.getMonday(new Date());
+    let reportCounter = reportsByWeek.reports.length;
+    const reports: Report[] = [];
+    for(let i = 7; i > 0; i--) {
+      let newDate = new Date(firstDayOfWeek);
+      newDate.setDate(newDate.getDate()+i-1);
+      console.log('date', newDate);
+      if(reportCounter === 0) {
+        const emptyReport: Report = {
+          date: newDate,
+          layedEggs: 0
+        }
+        reports.push(emptyReport);
+      } else {
+        const existingReport = reportsByWeek.reports.find(report => AppUtil.generateIdFromDate(locale, newDate) === report.id);
+        if(existingReport) {
+          reports.push(existingReport);
+          reportCounter--;
+        } else {
+          const emptyReport: Report = {
+            date: newDate,
+            layedEggs: 0
+          }
+          reports.push(emptyReport);
+        }
+      }
+    }
+    reportsByWeek.reports = reports;
+  }
+
   public static totalEggs(reports: Report[]): number {
     return reports.map(report => report.layedEggs).reduce((prev, next) => prev + next, 0);
   }
 
   public static reportsToWeekReports(reports: Report[]): ReportsByWeek[] {
     if(reports?.length < 1) {
-      return [];
+      return [{
+        week: AppUtil.dateToWeekNumber(new Date()),
+        eggs: 0,
+        reports: []
+      }];
     }
     const reportsByWeek: ReportsByWeek[] = [];
     let currentWeek: ReportsByWeek = {
@@ -117,10 +159,11 @@ export class AppUtil {
       const weekForReport = AppUtil.dateToWeekNumber(report.date);
       if(currentWeek.week === weekForReport) {
         currentWeek.reports.push(report);
+        currentWeek.eggs += report.layedEggs;
       } else {
         currentWeek = {
           week: weekForReport,
-          eggs: 0,
+          eggs: report.layedEggs,
           reports: [report]
         } 
         reportsByWeek.push(currentWeek);

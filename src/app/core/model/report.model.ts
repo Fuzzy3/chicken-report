@@ -5,6 +5,6 @@ export interface Report {
   id?: string;
   date: Date;
   layedEggs: number;
-  flockDetails: FlockDetails,
+  flockDetails?: FlockDetails,
   foodReport?: FoodReport
 }
