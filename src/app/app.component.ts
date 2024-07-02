@@ -5,11 +5,12 @@ import { MenuTabsComponent } from './core/menu-tabs/menu-tabs.component';
 import { ReportsComponent } from './features/report/reports.component';
 import { FlockManagementComponent } from './features/flock-management/flock-management.component';
 import { TrackerComponent } from './features/tracker/tracker.component';
+import { KirbyModule } from '@kirbydesign/designsystem';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, StatsComponent, MenuTabsComponent, ReportsComponent, FlockManagementComponent, TrackerComponent],
+  imports: [RouterOutlet, StatsComponent, MenuTabsComponent, ReportsComponent, FlockManagementComponent, TrackerComponent, KirbyModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

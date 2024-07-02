@@ -1,15 +1,19 @@
-<div class="container">
-  @for (week of reportsByWeek$ | async; track week.week) {
-    <div class="row end content">
-      <p class="report-week">Week {{week.week}} ({{week.eggs}})</p>
-    </div>
-    @for (report of week.reports; track report.id; let first = $first ) {
-      <app-report-item class="row list" [report]="report" [class.first-in-week]="first"></app-report-item>
-    }
-  }
-  @empty {
-    <div class="empty-text">
-      Add a new report to get started
-    </div>
-  }
-</div>
+<kirby-header [title]="'History'" [subtitle1]="'An overview of your historic reports'"></kirby-header>
+
+<kirby-list
+  [items]="reports"
+  [getSectionName]="getSectionName"
+>
+  <kirby-list-section-header
+    *kirbyListSectionHeader="let section"
+    [title]="getCorrectSectionName(section)"
+  ></kirby-list-section-header>
+  <kirby-item *kirbyListItemTemplate="let item">
+    <kirby-label>
+      <h3>{{ item.date | date: 'EEE' }}</h3>
+    </kirby-label>
+    <kirby-label slot="end">
+      <data [value]="item.layedEggs">{{ item.layedEggs }} eggs</data>
+    </kirby-label>
+  </kirby-item>
+</kirby-list>

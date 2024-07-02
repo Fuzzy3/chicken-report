@@ -1,13 +1,12 @@
 @import 'colors.scss';
 
 :host {
-    width: 100%;
-    height: 100%;
     align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
     position: relative;
+    flex: 1 1 auto;
 }
 
 .count-container {
@@ -19,6 +18,12 @@
     background-repeat: no-repeat; /* Do not repeat the image */
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.egg-container {
+    display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -42,33 +47,11 @@
     }
 }
 
-.prev-week .count-container {
-    height: 50px;
-    background-size: 50px;
-}
-
-.second-prev-week .count-container {
-    height: 40px;
-    background-size: 40px;
-}
-
 .week-container {
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.week-container.prev-week {
-    position: absolute;
-    top: calc(50vh - 250px);
-    right: 75px;
-}
-
-.week-container.second-prev-week {
-    position: absolute;
-    top: calc(50vh - 320px);
-    right: 130px;
 }
 
 .days {
@@ -92,29 +75,10 @@
     font-size: 18px;
     font-weight: 500;
     color: $black;
-}
-
-.prev-week .egg-text {
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.second-prev-week .egg-text {
-    font-size: 12px;
-    font-weight: 300;
+    margin: 0;
 }
 
 .week-header {
     margin-block-start: 0;
     margin-block-end: 0;
-}
-
-.prev-week .week-header {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.second-prev-week .week-header {
-    font-size: 14px;    
-    font-weight: 500;
 }

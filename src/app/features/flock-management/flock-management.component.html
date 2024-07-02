@@ -1,9 +1,15 @@
-<h2>Current Flock</h2>
-<app-stats-row>
-  <app-count [count]="chickens.numberOfHen" [minimumDigits]="2"></app-count>
-  Hens
-</app-stats-row>
-<app-stats-row>
-  <app-count [count]="chickens.numberOfRoosters" [minimumDigits]="2"></app-count>
-  Roosters
-</app-stats-row>
+<kirby-header [title]="'Current Flock'" [subtitle1]="'Manage your flock here'"></kirby-header>
+<kirby-card>
+  <kirby-item size="sm">
+    <h3>Hens</h3> 
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{chickens.numberOfHen}}</data>
+    </kirby-flag>
+  </kirby-item>
+  <kirby-item size="sm">
+    <h3>Rosters</h3> 
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{chickens.numberOfRoosters}}</data>
+    </kirby-flag>
+  </kirby-item>
+</kirby-card>

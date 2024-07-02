@@ -7,12 +7,13 @@ import { StatsRowComponent } from '@shared/components/stats-row/stats-row.compon
 import { ReportService } from '@core/services/report.service';
 import { FlockService } from '@core/services/flock-service.service';
 import { StatsService } from '@core/services/stats.service';
+import { KirbyModule } from '@kirbydesign/designsystem';
 
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [AsyncPipe, DecimalPipe, MatChipsModule, CountComponent, StatsRowComponent],
+  imports: [AsyncPipe, DecimalPipe, MatChipsModule, CountComponent, StatsRowComponent, KirbyModule],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss'
 })

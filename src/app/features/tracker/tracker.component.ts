@@ -8,56 +8,75 @@ import { ReportDialogService } from '@core/services/report-dialog.service';
 import { Observable } from 'rxjs';
 import { StatsService } from '@core/services/stats.service';
 import { CommonModule } from '@angular/common';
+import { KirbyModule } from '@kirbydesign/designsystem';
 
 @Component({
   selector: 'app-tracker',
   standalone: true,
-  imports: [DayCountComponent, CommonModule],
+  imports: [DayCountComponent, CommonModule, KirbyModule],
   templateUrl: './tracker.component.html',
   styleUrl: './tracker.component.scss'
 })
 export class TrackerComponent {
-  currentWeek: ReportsByWeek;
-  prevWeek: ReportsByWeek | undefined;
-  secondPrevWeek: ReportsByWeek | undefined;
+
+  selectedWeek: ReportsByWeek;
   pricePerEgg$: Observable<number>;
-  
+  selectedWeekIsThisWeek: boolean = true;
+  prevWeekExist: boolean = true;
+  reportsByWeek: ReportsByWeek[] = [];
+
+
   constructor(private reportService: ReportService, private reportDialogService: ReportDialogService, statsService: StatsService) {
     this.pricePerEgg$ = statsService.pricePerEgg$();
     reportService.getReportsByWeek$().subscribe(reportsByWeek => {
-      this.assignWeeks(reportsByWeek);
+      this.reportsByWeek = reportsByWeek;
+      this.setWeekToToday();
     })
   }
-  
-  private assignWeeks(reportsByWeek: ReportsByWeek[]) {
+
+  private setWeekToToday() {
     const today: Date = new Date();
     const currentWeek: number = AppUtil.dateToWeekNumber(today);
-    const first = reportsByWeek[0];
+    this.setWeek(currentWeek);
+  }
+  
+  private setWeek(weekNumber: number) {
+    const first = this.reportsByWeek[0];
 
-    if(first?.week === currentWeek) {
-      this.currentWeek = {...first};
-      AppUtil.fillWeekWithEmptyReports(this.currentWeek, this.reportService.getLocale());
+    const selectedWeek = this.reportsByWeek.find(reportsInWeek => reportsInWeek.week === weekNumber)
 
-      this.prevWeek = !!reportsByWeek[1] ? {...reportsByWeek[1]} : undefined;
-      this.secondPrevWeek = !!reportsByWeek[2] ? {...reportsByWeek[2]} : undefined;
-    } else {
-      this.currentWeek = {
-        week: currentWeek,
-        eggs: 0,
-        reports: []
-      }
-      AppUtil.fillWeekWithEmptyReports(this.currentWeek, this.reportService.getLocale());
-      this.prevWeek = {...reportsByWeek[0]};
-      this.secondPrevWeek = {...reportsByWeek[1]};
+    if(selectedWeek) {
+      if(selectedWeek?.week === first.week) {
+        this.selectedWeek = {...first};
+        AppUtil.fillWeekWithEmptyReports(this.selectedWeek, this.reportService.getLocale());
+        
+      } else {
+        this.selectedWeek = selectedWeek;
+        AppUtil.fillWeekWithEmptyReports(this.selectedWeek, this.reportService.getLocale());
+      } 
     }
+    this.selectedWeekIsThisWeek = weekNumber === AppUtil.dateToWeekNumber(new Date());
+    this.prevWeekExist = !!this.reportsByWeek.find(reportsInWeek => reportsInWeek.week === weekNumber-1);
   }
 
 
   openReport(report: Report) {
     if(!!report.id) {
       this.reportDialogService.editReport(report);
-    } else if (report.date <= new Date().getDate()) {
-      this.reportDialogService.openNewReport();
+    } else {
+      this.reportDialogService.openNewReport(report.date);
     }
+  }
+
+  goToPrevWeek() {
+    this.goToWeek(-1);
+  }
+
+  goToNextWeek() {
+    this.goToWeek(1);
+  }
+
+  goToWeek(delta: number) {
+    this.setWeek(this.selectedWeek.week + delta);
   }
 }

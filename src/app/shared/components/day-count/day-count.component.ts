@@ -10,15 +10,19 @@ import { AppUtil } from '@core/util/app-util';
   templateUrl: './day-count.component.html',
   styleUrl: './day-count.component.scss'
 })
-export class DayCountComponent implements OnInit {
-  @Input()
-  public report: Report;
-  
+export class DayCountComponent {
+  private _report: Report;
   reportIsToday: boolean = false;
-  
-  ngOnInit(): void {
-    const daysBetween = AppUtil.daysBetween(new Date(), this.report?.date);
+
+  @Input()
+  public set report(value: Report) {
+    const daysBetween = AppUtil.daysBetween(new Date(), value.date);
     this.reportIsToday = daysBetween === 0;
-    console.log('report date', this.report.date);
+    this._report = value;
+  };
+
+  public get report(): Report {
+    return this._report;
   }
+  
 }

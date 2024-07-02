@@ -4,7 +4,7 @@ import { AppUtil } from './app-util';
 
 export class TestUtil {
     private static readonly FLOCK_DETAILS_STUB: FlockDetails = {
-        numberOfHen: 20,
+        numberOfHen: 19,
         numberOfRoosters: 1
     }
 
@@ -25,7 +25,7 @@ export class TestUtil {
                 );
             } else {
                 const newReport: Report = {
-                    id: AppUtil.generateIdFromDate(locale, date),
+                    id: AppUtil.generateId(locale, date),
                     date,
                     layedEggs: eggs,
                     flockDetails: this.FLOCK_DETAILS_STUB,

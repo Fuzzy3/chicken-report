@@ -29,7 +29,7 @@ export class ReportService {
   submitReport(reportToSubmit: Report) {
     let newReports: Report[] = [...this.getReports()];
     if(!reportToSubmit.id) {
-      reportToSubmit.id = AppUtil.generateId(this.locale);
+      reportToSubmit.id = AppUtil.generateId(this.locale, reportToSubmit.date);
       newReports.push(reportToSubmit);
     } else {
       const existingDailyReport = this.reports$.getValue().find(report => report.id === reportToSubmit.id);

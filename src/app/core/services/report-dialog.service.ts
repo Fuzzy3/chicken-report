@@ -24,10 +24,10 @@ export class ReportDialogService {
 
   constructor(private dialog: MatDialog, private flockService: FlockService) { }
 
-  openNewReport(): Observable<any> {
+  openNewReport(date?: Date): Observable<any> {
     return this.dialog.open(ReportDialogComponent, {
       ...this.STANDARD_DIALOG,
-      data: AppUtil.generateNewReport(this.flockService.getCurrentFlock())
+      data: AppUtil.generateNewReport(this.flockService.getCurrentFlock(), date)
     }).afterClosed().pipe(take(1));
   }
 

@@ -27,7 +27,17 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/@kirbydesign/designsystem/icons/svg",
+                "output": "./assets/kirby/icons/svg"
+              },
+              {
+                "glob": "close.svg",
+                "input": "node_modules/@kirbydesign/designsystem/icons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
               "src/style/theme/app-theme.scss",

@@ -4,6 +4,7 @@ import { FoodReport } from '../model/food-report.model';
 import { FlockDetails } from '../model/flock-details.model';
 import { DAYS, LAND_OG_FRITID } from '../constant/constants';
 import { ReportsByWeek } from '@core/model/reports-by-week.model';
+import { first } from 'rxjs';
 
 
 export class AppUtil {
@@ -12,6 +13,10 @@ export class AppUtil {
 
   public static daysBetween(newestDate: Date, oldestDate: Date): number {
     return Math.abs(Math.floor((Date.UTC(newestDate.getFullYear(), newestDate.getMonth(), newestDate.getDate()) - Date.UTC(oldestDate.getFullYear(), oldestDate.getMonth(), oldestDate.getDate()) ) /(1000 * 60 * 60 * 24)));
+  }
+
+  public static dateIsToday(date: Date): boolean {
+    return AppUtil.daysBetween(new Date(), date) === 0;
   }
 
   public static compareDates(a: Date, b: Date): number {
@@ -36,6 +41,7 @@ export class AppUtil {
       }
       
       return 0;
+    
   }
 
   public static generateReport(id: string, eggCounter: number, currentFlock: FlockDetails): Report {
@@ -48,9 +54,9 @@ export class AppUtil {
     return newReport;
   }
 
-  public static generateNewReport(currentFlock: FlockDetails): Report {
+  public static generateNewReport(currentFlock: FlockDetails, date?: Date): Report {
     const newReport: Report = {
-      date: new Date(),
+      date: date ? date : new Date(),
       layedEggs: 0, 
       flockDetails: { ...currentFlock }
     }
@@ -61,14 +67,13 @@ export class AppUtil {
     return { price: LAND_OG_FRITID.PRICE_OF_NATURAEG, weight: LAND_OG_FRITID.WEIGHT_OF_NATURAEG };
   }
 
-  public static generateId(locale: string): string {
-    return formatDate(Date.now(), 'dd-MM-yyyy', locale);
+  public static generateId(locale: string, date?: Date): string {
+    return formatDate(date ? date : new Date(), 'dd-MM-yyyy', locale);
   }
 
-  public static generateIdFromDate(locale: string, date: Date): string {
-    return formatDate(date, 'dd-MM-yyyy', locale);
-  }
-  
+  public static formatDate(locale: string, date: Date): string {
+    return formatDate(date, 'EEE dd/MM/yyyy', locale);
+  }  
 
   public static dateToDay(date: Date) {
     return DAYS[new Date(date).getDay()].substring(0,3);
@@ -76,7 +81,7 @@ export class AppUtil {
 
   public static syncIdAndDate(locale: string, reports: Report[]) {
     reports.forEach(report => {
-      const idFromDate = AppUtil.generateIdFromDate(locale, report.date);
+      const idFromDate = AppUtil.generateId(locale, report.date);
       console.log('new id', idFromDate);
       console.log('date', report.date);
       report.id = idFromDate;
@@ -105,7 +110,16 @@ export class AppUtil {
   }
 
   public static fillWeekWithEmptyReports(reportsByWeek: ReportsByWeek, locale: string) {
-    const firstDayOfWeek: Date = AppUtil.getMonday(new Date());
+    let firstDayOfWeek: Date;
+    if(reportsByWeek.reports.length === 0) {
+      let searchDate = new Date();
+      while(AppUtil.dateToWeekNumber(searchDate) !== reportsByWeek.week) {
+        searchDate = new Date(searchDate.getDate() - 7);
+      }
+      firstDayOfWeek = AppUtil.getMonday(searchDate);
+    } else {
+      firstDayOfWeek = AppUtil.getMonday(reportsByWeek.reports[0].date);
+    }
     let reportCounter = reportsByWeek.reports.length;
     const reports: Report[] = [];
     for(let i = 7; i > 0; i--) {
@@ -119,7 +133,7 @@ export class AppUtil {
         }
         reports.push(emptyReport);
       } else {
-        const existingReport = reportsByWeek.reports.find(report => AppUtil.generateIdFromDate(locale, newDate) === report.id);
+        const existingReport = reportsByWeek.reports.find(report => AppUtil.generateId(locale, newDate) === report.id);
         if(existingReport) {
           reports.push(existingReport);
           reportCounter--;
@@ -133,6 +147,7 @@ export class AppUtil {
       }
     }
     reportsByWeek.reports = reports;
+    
   }
 
   public static totalEggs(reports: Report[]): number {

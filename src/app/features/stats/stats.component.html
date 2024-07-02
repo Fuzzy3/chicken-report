@@ -1,23 +1,34 @@
-<app-stats-row>
-  <app-count [count]="totalEggs$ | async" [minimumDigits]="3">
-    {{ totalEggs$ | async}}
-  </app-count>
-  Total eggs
-</app-stats-row>
-<app-stats-row>
-  Daily eggs on average
-  <app-count [count]="averageEggsPerDay$ | async" [minimumDigits]="3"></app-count>
-  
-</app-stats-row>
-<app-stats-row>
-  <app-count [count]="pricePerEgg$ | async" [postText]="' kr.'" [minimumDigits]="3"></app-count>
-  Per egg on average
-</app-stats-row>
-<app-stats-row>
-  <app-count [count]="avgDaysBetweenFoodRefill$ | async" [minimumDigits]="3"></app-count>
-  Days between food refills on average
-</app-stats-row>
-<app-stats-row>
-  <app-count [count]="weightPerChickenPerDay$ | async" [minimumDigits]="3"></app-count>
-  Grams of food per chicken per day
-</app-stats-row>
+<kirby-header [title]="'Analysis'" [subtitle1]="'Your chicken stats'"></kirby-header>
+
+<kirby-card>
+  <kirby-item size="sm">
+    <h3>Total eggs</h3> 
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{ totalEggs$ | async}}</data>
+    </kirby-flag>
+  </kirby-item>
+  <kirby-item size="sm">
+    <h3>Daily eggs on average</h3>
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{ averageEggsPerDay$ | async}}</data>
+    </kirby-flag>
+  </kirby-item>
+  <kirby-item size="sm">
+    <h3>Price per egg on average</h3>
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{ pricePerEgg$ | async}}</data>
+    </kirby-flag>
+  </kirby-item>
+  <kirby-item size="sm">
+    <h3>Days between food refills on average</h3>
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{ avgDaysBetweenFoodRefill$ | async}}</data>
+    </kirby-flag>
+  </kirby-item>
+  <kirby-item size="sm">
+    <h3>Grams of food per chicken per day</h3>
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{ weightPerChickenPerDay$ | async}}</data>
+    </kirby-flag>
+  </kirby-item>
+</kirby-card>
