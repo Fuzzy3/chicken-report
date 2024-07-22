@@ -3,17 +3,17 @@ import { Observable, combineLatest, filter, map, of, shareReplay } from 'rxjs';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { CountComponent } from '@shared/components/count/count.component';
-import { StatsRowComponent } from '@shared/components/stats-row/stats-row.component';
 import { ReportService } from '@core/services/report.service';
 import { FlockService } from '@core/services/flock-service.service';
 import { StatsService } from '@core/services/stats.service';
 import { KirbyModule } from '@kirbydesign/designsystem';
+import { EggChartComponent } from '@shared/components/egg-chart/egg-chart.component';
 
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [AsyncPipe, DecimalPipe, MatChipsModule, CountComponent, StatsRowComponent, KirbyModule],
+  imports: [AsyncPipe, DecimalPipe, MatChipsModule, CountComponent, KirbyModule, EggChartComponent],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss'
 })

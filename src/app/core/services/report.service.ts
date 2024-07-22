@@ -68,9 +68,9 @@ export class ReportService {
     return this.reports$.asObservable();
   }
 
-  getReportsByWeek$(): Observable<ReportsByWeek[]> {
+  getReportsByWeek$(): Observable<ReadonlyArray<ReportsByWeek>> {
     return this.reports$.asObservable().pipe(
-      map(reports => AppUtil.reportsToWeekReports([...reports]))
+      map(reports => AppUtil.reportsToWeekReportFillEmptyWeeks([...reports], this.locale))
     );
   }
 

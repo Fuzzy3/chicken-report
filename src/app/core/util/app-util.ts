@@ -4,7 +4,6 @@ import { FoodReport } from '../model/food-report.model';
 import { FlockDetails } from '../model/flock-details.model';
 import { DAYS, LAND_OG_FRITID } from '../constant/constants';
 import { ReportsByWeek } from '@core/model/reports-by-week.model';
-import { first } from 'rxjs';
 
 
 export class AppUtil {
@@ -82,8 +81,6 @@ export class AppUtil {
   public static syncIdAndDate(locale: string, reports: Report[]) {
     reports.forEach(report => {
       const idFromDate = AppUtil.generateId(locale, report.date);
-      console.log('new id', idFromDate);
-      console.log('date', report.date);
       report.id = idFromDate;
     })
   }
@@ -102,6 +99,16 @@ export class AppUtil {
      return weekNo;
   }
 
+  public static getMondayOfWeek(week: number, year: number = 2024): Date {
+    const day = (1 + (week - 1) * 7); // 1st of January + 7 days for each week
+
+    return new Date(year, 0, day);
+  }
+
+  public static thisWeekNumber(): number {
+    return this.dateToWeekNumber(new Date());
+  }
+
   public static getMonday(value: Date): Date {
     const date = new Date(value);
     const day = date.getDay();
@@ -110,22 +117,12 @@ export class AppUtil {
   }
 
   public static fillWeekWithEmptyReports(reportsByWeek: ReportsByWeek, locale: string) {
-    let firstDayOfWeek: Date;
-    if(reportsByWeek.reports.length === 0) {
-      let searchDate = new Date();
-      while(AppUtil.dateToWeekNumber(searchDate) !== reportsByWeek.week) {
-        searchDate = new Date(searchDate.getDate() - 7);
-      }
-      firstDayOfWeek = AppUtil.getMonday(searchDate);
-    } else {
-      firstDayOfWeek = AppUtil.getMonday(reportsByWeek.reports[0].date);
-    }
+    let firstDayOfWeek: Date = this.getMondayOfWeek(reportsByWeek.week);
     let reportCounter = reportsByWeek.reports.length;
     const reports: Report[] = [];
     for(let i = 7; i > 0; i--) {
       let newDate = new Date(firstDayOfWeek);
       newDate.setDate(newDate.getDate()+i-1);
-      console.log('date', newDate);
       if(reportCounter === 0) {
         const emptyReport: Report = {
           date: newDate,
@@ -154,7 +151,11 @@ export class AppUtil {
     return reports.map(report => report.layedEggs).reduce((prev, next) => prev + next, 0);
   }
 
-  public static reportsToWeekReports(reports: Report[]): ReportsByWeek[] {
+  /**
+   * @param reports reports that should be grouped into weeks
+   * @returns grouped reports from the first reported week until today with empty reports on unreported days 
+   */
+  public static reportsToWeekReports(reports: Report[], locale: string): ReportsByWeek[] {
     if(reports?.length < 1) {
       return [{
         week: AppUtil.dateToWeekNumber(new Date()),
@@ -163,16 +164,11 @@ export class AppUtil {
       }];
     }
     const reportsByWeek: ReportsByWeek[] = [];
-    let currentWeek: ReportsByWeek = {
-      week: AppUtil.dateToWeekNumber(reports[0].date),
-      eggs: 0,
-      reports: []
-    };
-    reportsByWeek.push(currentWeek);
+    let currentWeek: ReportsByWeek;
 
     reports.forEach(report => {
       const weekForReport = AppUtil.dateToWeekNumber(report.date);
-      if(currentWeek.week === weekForReport) {
+      if(currentWeek?.week === weekForReport) {
         currentWeek.reports.push(report);
         currentWeek.eggs += report.layedEggs;
       } else {
@@ -184,8 +180,34 @@ export class AppUtil {
         reportsByWeek.push(currentWeek);
       }
     })
-
     return reportsByWeek;
   }
+
+  public static reportsToWeekReportFillEmptyWeeks(reports: Report[], locale: string): ReportsByWeek[] {
+    const firstReport: Report = reports[reports.length-1];
+    const firstWeek = this.dateToWeekNumber(firstReport.date);
+    const thisWeek = this.dateToWeekNumber(new Date());
+    console.log('first week', firstWeek);
+    console.log('current week', thisWeek);
+
+    const reportsByWeek: ReportsByWeek[] = [];
+
+    for(let i = firstWeek; i <= thisWeek; i++) {
+      const reportsForWeek = [...reports.filter(report => this.dateToWeekNumber(report.date) === i)];
+      const currentWeek = {
+        week: i,
+        eggs: reportsForWeek.reduce((prev, curr) => prev += curr.layedEggs, 0),
+        reports: reportsForWeek
+      };
+      reportsByWeek.push(currentWeek);
+      this.fillWeekWithEmptyReports(currentWeek, locale);
+    }
+    
+    
+    console.log('result', reportsByWeek);
+    return reportsByWeek;
+  }
+
+
 
 }

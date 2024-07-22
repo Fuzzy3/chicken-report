@@ -34,6 +34,21 @@ export class TestUtil {
                 reports.push(newReport);
             }
         }
+
+        reports.push(this.generateTwoMonthOldReport(locale));
+
         return reports;
+    }
+
+    public static generateTwoMonthOldReport(locale: string): Report {
+        const date60daysAgo: Date = new Date();
+        date60daysAgo.setDate(date60daysAgo.getDate()-60);
+        
+        return {
+            id: AppUtil.generateId(locale, date60daysAgo),
+            date: date60daysAgo,
+            layedEggs: 5,
+            flockDetails: this.FLOCK_DETAILS_STUB,
+        }
     }
 }

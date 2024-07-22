@@ -1,7 +1,6 @@
-.chip-container {
-  width: 85px;
-}
-
 :host {
   margin: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

@@ -29,7 +29,7 @@ export class TrackerComponent {
   constructor(private reportService: ReportService, private reportDialogService: ReportDialogService, statsService: StatsService) {
     this.pricePerEgg$ = statsService.pricePerEgg$();
     reportService.getReportsByWeek$().subscribe(reportsByWeek => {
-      this.reportsByWeek = reportsByWeek;
+      this.reportsByWeek = [...reportsByWeek];
       this.setWeekToToday();
     })
   }
@@ -41,19 +41,13 @@ export class TrackerComponent {
   }
   
   private setWeek(weekNumber: number) {
-    const first = this.reportsByWeek[0];
+    const existingWeek = this.reportsByWeek.find(reportsInWeek => reportsInWeek.week === weekNumber)
 
-    const selectedWeek = this.reportsByWeek.find(reportsInWeek => reportsInWeek.week === weekNumber)
-
-    if(selectedWeek) {
-      if(selectedWeek?.week === first.week) {
-        this.selectedWeek = {...first};
-        AppUtil.fillWeekWithEmptyReports(this.selectedWeek, this.reportService.getLocale());
-        
-      } else {
-        this.selectedWeek = selectedWeek;
-        AppUtil.fillWeekWithEmptyReports(this.selectedWeek, this.reportService.getLocale());
-      } 
+    if(existingWeek) {
+      this.selectedWeek = existingWeek;
+      AppUtil.fillWeekWithEmptyReports(this.selectedWeek, this.reportService.getLocale());
+    } else {
+      
     }
     this.selectedWeekIsThisWeek = weekNumber === AppUtil.dateToWeekNumber(new Date());
     this.prevWeekExist = !!this.reportsByWeek.find(reportsInWeek => reportsInWeek.week === weekNumber-1);
