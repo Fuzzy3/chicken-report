@@ -1,0 +1,74 @@
+<kirby-form-field label="Name">
+  <input kirby-input size="md" placeholder="Give a name to your brood" [(ngModel)]="name">
+</kirby-form-field>
+
+<kirby-card>
+  <kirby-item [size]="'md'">
+    <kirby-avatar [overlay]="true" slot="start">
+      <kirby-icon name="sunshine"></kirby-icon>
+    </kirby-avatar>
+
+    <kirby-label>
+      <h3>Chicks</h3> 
+    </kirby-label>
+
+    <div slot="end" class="test">
+      <button kirby-button (click)="numberOfChickens = numberOfChickens + 1" [size]="'sm'">
+        <kirby-icon name="add"></kirby-icon>
+      </button>
+      <button kirby-button (click)="numberOfChickens = numberOfChickens === 0 ? 0 : numberOfChickens - 1" [size]="'sm'">
+        <kirby-icon name="remove"></kirby-icon>
+      </button>
+      <kirby-flag class="push-left" themeColor="success">
+        <data>{{numberOfChickens}}</data>
+      </kirby-flag>
+    </div>
+
+  </kirby-item>
+  <kirby-item [size]="'md'" [disclosure]="showCalendar ? 'arrow-up' : 'arrow-down'" (click)="showCalendar = !showCalendar">
+    <kirby-avatar [overlay]="true" slot="start">
+      <kirby-icon name="calendar"></kirby-icon>
+    </kirby-avatar>
+
+    <kirby-label>
+      <h3>Date</h3> 
+    </kirby-label>
+    
+    <kirby-flag themeColor="success" slot="end">
+      @if (selectedDate) {
+        <data>{{selectedDate | date: 'EEE dd-MM-yyyy'}}</data>
+      }
+      @else {
+        <data>No Date</data>
+      }
+    </kirby-flag>
+    
+  </kirby-item>
+  
+  @if (showCalendar) {
+    <kirby-calendar
+      [disableFutureDates]="true"
+      [todayDate]="today"
+      (dateChange)="onDateChange($event)"
+    ></kirby-calendar>
+    <div class="center">
+      <button class="center" kirby-button (click)="selectedDate = undefined; showCalendar = false;">
+        No Date
+      </button>
+    </div>
+  }
+  
+</kirby-card>
+<kirby-modal-footer type="inline">
+  @if(!isNewBrood) {
+    <button
+    kirby-button
+    attentionLevel="3"
+
+    (click)="removeBrood()"
+    >
+      Remove
+    </button>
+  }
+  <button kirby-button (click)="submit()">Save</button>
+</kirby-modal-footer>

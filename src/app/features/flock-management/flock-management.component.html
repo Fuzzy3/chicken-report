@@ -1,15 +1,18 @@
 <kirby-header [title]="'Current Flock'" [subtitle1]="'Manage your flock here'"></kirby-header>
-<kirby-card>
-  <kirby-item size="sm">
-    <h3>Hens</h3> 
-    <kirby-flag slot="end" themeColor="success">
-      <data>{{chickens.numberOfHen}}</data>
-    </kirby-flag>
-  </kirby-item>
-  <kirby-item size="sm">
-    <h3>Rosters</h3> 
-    <kirby-flag slot="end" themeColor="success">
-      <data>{{chickens.numberOfRoosters}}</data>
-    </kirby-flag>
-  </kirby-item>
-</kirby-card>
+<div class="content">
+
+  <app-chicken-brood-detail [brood]="chickens.mainFlock"></app-chicken-brood-detail>
+
+  @for (brood of chickens.flock; track brood.id) {
+    @if (isChickenBrood(brood)) {
+      <app-chicken-brood-detail [brood]="brood" ></app-chicken-brood-detail>
+    }
+    @else if (isChickBrood(brood)) {
+      <app-chick-brood-detail [brood]="brood" (edit)="editBrood($event)"></app-chick-brood-detail>
+    } 
+  }
+
+  <button kirby-button class="add-flock" (click)="newBrood()">
+    <kirby-icon name="add" size="md"></kirby-icon>
+  </button>
+</div>

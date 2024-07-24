@@ -1,0 +1,48 @@
+<kirby-card class="card">
+  <kirby-card-header class="border"[hasPadding]="false">
+    <kirby-item>
+      <kirby-label>
+        <h3>{{name}}</h3>
+      </kirby-label>
+      <button kirby-button slot="end" (click)="edit.emit(brood)" size="sm">
+        <kirby-icon name="edit">
+        </kirby-icon>
+      </button>
+    </kirby-item>
+  </kirby-card-header>
+  <kirby-item size="sm">
+    <kirby-avatar [overlay]="true" slot="start">
+      <kirby-icon name="sunshine"></kirby-icon>
+    </kirby-avatar>
+    <kirby-label>
+      <h3>Chicks</h3> 
+    </kirby-label>
+    <kirby-flag slot="end" themeColor="success">
+      <data>{{brood.numberOfChickens}}</data>
+    </kirby-flag>
+  </kirby-item>
+
+  <kirby-item size="sm">
+    <kirby-avatar [overlay]="true" slot="start">
+      <kirby-icon name="life"></kirby-icon>
+    </kirby-avatar>
+    <kirby-label>
+      <h3>Age</h3>
+    </kirby-label>
+    <kirby-flag slot="end" themeColor="success">
+      <data>Weeks {{ageInWeeks}}</data>
+    </kirby-flag>
+  </kirby-item>
+  
+  <kirby-item size="sm">
+    <kirby-avatar [overlay]="true" slot="start">
+      <kirby-icon name="moneybag"></kirby-icon>
+    </kirby-avatar>
+    <kirby-label>
+      <h3>Price</h3> 
+    </kirby-label>
+    <kirby-flag slot="end" themeColor="success">
+      <data>kr. {{price}}.00</data>
+    </kirby-flag>
+  </kirby-item>
+</kirby-card>

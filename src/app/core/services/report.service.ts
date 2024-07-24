@@ -41,6 +41,17 @@ export class ReportService {
     this.setReports(newReports);
   }
 
+  deleteReport(reportToDelete: Report) {
+    let newReports: Report[] = [...this.getReports()];
+
+    const existingDailyReport = this.reports$.getValue().find(report => report.id === reportToDelete.id);
+    if(existingDailyReport) {
+      reportToDelete.id = undefined;
+      newReports = [...newReports.filter(report => report.id !== existingDailyReport.id), reportToDelete];
+      this.setReports(newReports);
+    }
+  }
+
   private setReportsToLocalStorage() {
     const reportsAsJsonString = JSON.stringify(this.reports$.getValue());
     localStorage.setItem(this.ID, reportsAsJsonString);

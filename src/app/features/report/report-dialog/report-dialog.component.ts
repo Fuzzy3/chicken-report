@@ -21,6 +21,7 @@ export class ReportDialogComponent {
   report: Report;
   refillFood: boolean = false;
   reportTitle: string = "New Report - Today";
+  isNewReport: boolean = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Report,
@@ -30,18 +31,17 @@ export class ReportDialogComponent {
     if(data) {
       this.report = {...data};
       const dateString = this.report.date && !AppUtil.dateIsToday(this.report.date) ? AppUtil.formatDate(locale, this.report.date) : 'Today';
-      if(this.report.id) {
-        this.reportTitle = 'Edit Report - ' + dateString;
-      } else {
+      this.isNewReport = !this.report.id;
+      if(this.isNewReport) {
         this.reportTitle = 'New Report - ' + dateString;
+      } else {
+        this.reportTitle = 'Edit Report - ' + dateString;
       }
       if(this.report.foodReport) {
         this.refillFood = true;
       }
     }
   }
-
-  
 
   addEggs(amount: number) {
     if(this.report.layedEggs + amount > -1) {
@@ -57,6 +57,11 @@ export class ReportDialogComponent {
       this.report.foodReport = undefined;
     }
     this.reportService.submitReport(this.report);
+    this.close();
+  }
+
+  deleteReport() {
+    this.reportService.deleteReport(this.report);
     this.close();
   }
 

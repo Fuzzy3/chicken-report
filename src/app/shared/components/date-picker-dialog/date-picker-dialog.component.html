@@ -1,0 +1,12 @@
+<kirby-card>
+  <kirby-calendar
+    [disableFutureDates]="true"
+    [todayDate]="today"
+    (dateChange)="onDateChange($event)"
+
+  ></kirby-calendar>
+  
+  <kirby-modal-footer>
+    <button kirby-button (click)="submit()">Submit date</button>
+  </kirby-modal-footer>
+</kirby-card>

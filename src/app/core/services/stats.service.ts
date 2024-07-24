@@ -12,9 +12,7 @@ export class StatsService {
 
 
 
-  constructor(private reportService: ReportService, private flockService: FlockService) {
-    
-  }
+  constructor(private reportService: ReportService, private flockService: FlockService) {}
 
   averageEggsPerDay$(): Observable<number> {
     return this.reportService.getReports$().pipe(
@@ -50,7 +48,7 @@ export class StatsService {
 
   avgFoodEatenPerChickenPerDayInGrams$(): Observable<number> {
     return this.avgDaysBetweenFoodRefill$().pipe(
-      map(daysBetweenRefills => (AppUtil.generateRefillFoodReport().weight/(this.flockService.getCurrentFlock().numberOfHen + this.flockService.getCurrentFlock().numberOfRoosters))/daysBetweenRefills),
+      map(daysBetweenRefills => (AppUtil.generateRefillFoodReport().weight/(this.flockService.getCurrentFlock().mainFlock.numberOfHen + this.flockService.getCurrentFlock().mainFlock.numberOfRoosters))/daysBetweenRefills),
       map(weightInKilos => weightInKilos * 1000),
       map(weightInGrams => Math.round(weightInGrams))
     )

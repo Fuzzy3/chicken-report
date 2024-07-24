@@ -16,7 +16,10 @@
   </div>
 
   <app-dialog-footer>
-    <button mat-button (click)="submitEggs()">Submit</button>
+    @if(!isNewReport) {
+      <button mat-button (click)="deleteReport()">Delete</button>
+    }
+    <button mat-button (click)="submitEggs()" end>Submit</button>
   </app-dialog-footer>
 </app-dialog>
 

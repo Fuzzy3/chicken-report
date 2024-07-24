@@ -1,3 +1,14 @@
 :host {
   margin: 8px;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.add-flock {
+  display: flex;
+  align-self: center;
+}

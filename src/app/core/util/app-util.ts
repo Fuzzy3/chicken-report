@@ -1,9 +1,11 @@
 import { Report } from '../model/report.model';
 import { formatDate } from '@angular/common';
 import { FoodReport } from '../model/food-report.model';
-import { FlockDetails } from '../model/flock-details.model';
+import { Brood, FlockDetails } from '../model/flock-details.model';
 import { DAYS, LAND_OG_FRITID } from '../constant/constants';
 import { ReportsByWeek } from '@core/model/reports-by-week.model';
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 export class AppUtil {
@@ -18,12 +20,19 @@ export class AppUtil {
     return AppUtil.daysBetween(new Date(), date) === 0;
   }
 
-  public static compareDates(a: Date, b: Date): number {
+  public static compareDates(a?: Date, b?: Date): number {
+    if(!a || !b) {
+      return 1;
+    }
     return a.getTime() - b.getTime();
   }
 
   public static compareReportsByDate(a: Report, b: Report): number {
     return AppUtil.compareDates(b.date, a.date);
+  }
+
+  public static compareFlockByDates(a: Brood, b: Brood) {
+    return AppUtil.compareDates(b.hatchDate, a.hatchDate);
   }
 
   public static roundToTwoDecimals(value: number): number {
@@ -40,7 +49,6 @@ export class AppUtil {
       }
       
       return 0;
-    
   }
 
   public static generateReport(id: string, eggCounter: number, currentFlock: FlockDetails): Report {
@@ -187,9 +195,6 @@ export class AppUtil {
     const firstReport: Report = reports[reports.length-1];
     const firstWeek = this.dateToWeekNumber(firstReport.date);
     const thisWeek = this.dateToWeekNumber(new Date());
-    console.log('first week', firstWeek);
-    console.log('current week', thisWeek);
-
     const reportsByWeek: ReportsByWeek[] = [];
 
     for(let i = firstWeek; i <= thisWeek; i++) {
@@ -203,11 +208,26 @@ export class AppUtil {
       this.fillWeekWithEmptyReports(currentWeek, locale);
     }
     
-    
-    console.log('result', reportsByWeek);
     return reportsByWeek;
   }
 
 
+  public static getWeekAgeFromDate(date?: Date): number | undefined {
+    if(!date) {
+      return undefined;
+    }
+    const ageInWeeks: number = this.daysBetween(new Date(), date) / 7;
+    return Math.floor(ageInWeeks);
+  }
 
+  public static chickPriceFromWeekAge(weeks?: number) {
+    if(!weeks && weeks !== 0) {
+      return 100;
+    }
+    return weeks > 15 ? 100 : 30 + (weeks * 5);
+  }
+
+  public static uuid(): string {
+    return uuidv4();
+  }
 }

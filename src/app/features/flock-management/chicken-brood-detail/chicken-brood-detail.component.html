@@ -1,0 +1,46 @@
+<kirby-card>
+  <kirby-card-header class="border" [hasPadding]="false">
+    <kirby-item>
+      <kirby-label>
+        <h3 class="kirby-text-bold">Main flock</h3>
+      </kirby-label>
+      <button kirby-button slot="end" (click)="edit()" size="sm">
+        <kirby-icon [name]="isEditing ? 'checkmark-selected' : 'edit'">
+        </kirby-icon>
+      </button>
+    </kirby-item>
+  </kirby-card-header>
+
+  <kirby-item size="sm">
+    <h3>Hens</h3> 
+    <div slot="end">
+      @if (isEditing) {
+        <button kirby-button (click)="brood.numberOfHen = brood.numberOfHen + 1" [size]="'sm'">
+          <kirby-icon name="add"></kirby-icon>
+        </button>
+        <button kirby-button (click)="brood.numberOfHen = brood.numberOfHen === 0 ? 0 : brood.numberOfHen - 1" [size]="'sm'">
+          <kirby-icon name="remove"></kirby-icon>
+        </button>
+      }
+      <kirby-flag class="push-left" themeColor="success">
+        <data>{{brood.numberOfHen}}</data>
+      </kirby-flag>
+    </div>
+  </kirby-item>
+  <kirby-item size="sm">
+    <h3>Roosters</h3> 
+    <div slot="end">
+      @if (isEditing) {
+        <button kirby-button (click)="brood.numberOfRoosters = brood.numberOfRoosters + 1" [size]="'sm'">
+          <kirby-icon name="add"></kirby-icon>
+        </button>
+        <button kirby-button (click)="brood.numberOfRoosters = brood.numberOfRoosters === 0 ? 0 : brood.numberOfRoosters - 1" [size]="'sm'">
+          <kirby-icon name="remove"></kirby-icon>
+        </button>
+      }
+      <kirby-flag class="push-left" themeColor="success">
+        <data>{{brood.numberOfRoosters}}</data>
+      </kirby-flag>
+    </div>
+  </kirby-item>
+</kirby-card>

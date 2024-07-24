@@ -1,0 +1,15 @@
+.card {
+    padding: 8px 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+kirby-item {
+    border-bottom: solid 1px rgb(246, 246, 246);
+    &:last-child {
+        border-bottom: none;
+    }
+}
