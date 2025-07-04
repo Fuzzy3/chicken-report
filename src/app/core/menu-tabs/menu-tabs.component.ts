@@ -1,19 +1,17 @@
-import { AfterViewInit, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { MatTab, MatTabGroup, MatTabsModule } from '@angular/material/tabs';
+import { Component } from '@angular/core';
 import { ReportDialogService } from '../services/report-dialog.service';
-import { MatIconModule } from '@angular/material/icon';
 import { ReportService } from '@core/services/report.service';
+import { IconModule, TabButtonComponent, TabsModule } from '@kirbydesign/designsystem';
 
 @Component({
   selector: 'app-menu-tabs',
   standalone: true,
-  imports: [MatTabsModule, MatIconModule],
+  imports: [TabsModule, IconModule],
   templateUrl: './menu-tabs.component.html',
   styleUrl: './menu-tabs.component.scss'
 })
-export class MenuTabsComponent implements AfterViewInit {
-  @ViewChild(MatTabGroup) group: MatTabGroup;
-  @ViewChildren(MatTab) tabs: QueryList<MatTab>;
+export class MenuTabsComponent {
+
   tab_num = 0;
   selected = 0;
   highlightTrack = false;
@@ -22,17 +20,6 @@ export class MenuTabsComponent implements AfterViewInit {
   
   constructor(private reportDialogService: ReportDialogService, private reportService: ReportService) {
 
-  }
-
-  ngAfterViewInit(){
-    this.tab_num = this.tabs.length
-    console.log(this.group)
-  }
-  
-  onSelectedTabChange(tabIndex: number) {
-    if (tabIndex === 2) {
-      this.group.selectedIndex = 0;
-    }
   }
 
   openReportDialog() {

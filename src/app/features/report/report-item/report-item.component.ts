@@ -1,8 +1,5 @@
 import { Component, HostBinding, HostListener, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { DateToDayPipe } from '@core/pipe/date-to-day.pipe';
 import { ReportDialogService } from '@core/services/report-dialog.service';
 import { CountComponent } from '@shared/components/count/count.component';
@@ -11,7 +8,7 @@ import { Report } from '@core/model/report.model';
 @Component({
   selector: 'app-report-item',
   standalone: true,
-  imports: [DatePipe, DateToDayPipe, MatChipsModule, MatIconModule, MatButtonModule, CountComponent],
+  imports: [DatePipe, DateToDayPipe, CountComponent],
   templateUrl: './report-item.component.html',
   styleUrl: './report-item.component.scss'
 })

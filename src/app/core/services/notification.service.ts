@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { ToastConfig, ToastController } from '@kirbydesign/designsystem';
 
+const defaultConfig: ToastConfig = {
+  message: 'Your toast message',
+  messageType: 'success',
+  durationInMs: 5000,
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private toastController: ToastController) { }
 
   publishNotification(message: string) {
-    this.snackBar.open(message, 'Close');
+    const config = {...defaultConfig, message}
+    this.toastController.showToast(config);
   }
 
   publishObjectNotification(message: string, object: any) {
-    this.snackBar.open(message + ', ' + JSON.stringify(object), 'Close');
+    this.publishNotification(message + ', ' + JSON.stringify(object));
   }
-
-  publishActionNotification(message: string, action?: string): Observable<void> {
-    return this.snackBar.open(message, action).onAction();
-  }
-
 }

@@ -47,8 +47,12 @@
     </div>
 </div>
 
-<div class="coin">
-    <div class="coin-text">
-        {{pricePerEgg$ | async}} kr.
-    </div>
-</div>
+@if (pricePerEgg$ | async; as pricePerEgg) {
+    @if (pricePerEgg > 0) {
+        <div class="coin">
+            <div class="coin-text">
+                {{pricePerEgg}} kr.
+            </div>
+        </div>
+    }
+}

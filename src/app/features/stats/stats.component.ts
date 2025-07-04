@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, combineLatest, filter, map, of, shareReplay } from 'rxjs';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { MatChipsModule } from '@angular/material/chips';
 import { CountComponent } from '@shared/components/count/count.component';
 import { ReportService } from '@core/services/report.service';
 import { FlockService } from '@core/services/flock-service.service';
@@ -13,7 +12,7 @@ import { EggChartComponent } from '@shared/components/egg-chart/egg-chart.compon
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [AsyncPipe, DecimalPipe, MatChipsModule, CountComponent, KirbyModule, EggChartComponent],
+  imports: [AsyncPipe, DecimalPipe, CountComponent, KirbyModule, EggChartComponent],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss'
 })

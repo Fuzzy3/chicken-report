@@ -1,26 +1,23 @@
-<app-dialog>
-  <app-dialog-header [dialogTitle]="reportTitle" [showClose]="true" (onClose)="close()"></app-dialog-header>
 
-  <div class="row">
-    <span class="text"> Eggs: {{report.layedEggs}}</span>
-    <div class="filler"></div>
-    <div class="count-buttons">
-      <button mat-icon-button class="count-button" (click)="addEggs(1)"><mat-icon color="accent">add</mat-icon></button>
-      <button mat-icon-button class="count-button" (click)="addEggs(-1)"><mat-icon color="accent">remove</mat-icon></button>
-    </div>
-  </div>
-  <div class="row">
-    <label for="refill-food">Food refilled</label>
-    <div class="filler"></div>
-    <mat-checkbox type="checkbox" [(ngModel)]="refillFood" id="refill-food" name="refill-food" color="accent"> </mat-checkbox>
-  </div>
+<kirby-page-title>{{reportTitle}}</kirby-page-title>
 
-  <app-dialog-footer>
-    @if(!isNewReport) {
-      <button mat-button (click)="deleteReport()">Delete</button>
-    }
-    <button mat-button (click)="submitEggs()" end>Submit</button>
-  </app-dialog-footer>
-</app-dialog>
+<kirby-item>
+  <p class="kirby-item-title">Eggs gathered</p>
+  <div slot="end" class="increment-container">
+    <app-increment (add)="addEggs(1)" (subtract)="addEggs(-1)"></app-increment>
+    <kirby-flag themeColor="success">{{report.layedEggs}}</kirby-flag>
+  </div>
+</kirby-item>
+<kirby-item>
+  <kirby-checkbox slot="end" [(checked)]="refillFood">Food refilled</kirby-checkbox>
+</kirby-item>
+
+<kirby-modal-footer>
+  @if(!isNewReport) {
+    <button kirby-button (click)="deleteReport()">Delete</button>
+  }
+  <button kirby-button (click)="submitEggs()">Submit</button>
+</kirby-modal-footer>
+
 
     

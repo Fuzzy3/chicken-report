@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { MatChipsModule } from '@angular/material/chips';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { KirbyModule } from '@kirbydesign/designsystem';
 
 @Component({
   selector: 'app-count',
   standalone: true,
-  imports: [MatChipsModule],
+  imports: [KirbyModule],
   templateUrl: './count.component.html',
   styleUrl: './count.component.scss'
 })

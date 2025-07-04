@@ -67,6 +67,7 @@ export class AppUtil {
       layedEggs: 0, 
       flockDetails: { ...currentFlock }
     }
+    console.log('new report', newReport);
     return newReport;
   }
 
@@ -192,9 +193,15 @@ export class AppUtil {
   }
 
   public static reportsToWeekReportFillEmptyWeeks(reports: Report[], locale: string): ReportsByWeek[] {
+    const thisWeek = this.dateToWeekNumber(new Date());
+
+    if(reports.length === 0) {
+      const firstTimeWeekReport = this.generateEmptyWeekReport(thisWeek);
+      this.fillWeekWithEmptyReports(firstTimeWeekReport, locale);
+      return [firstTimeWeekReport];
+    }
     const firstReport: Report = reports[reports.length-1];
     const firstWeek = this.dateToWeekNumber(firstReport.date);
-    const thisWeek = this.dateToWeekNumber(new Date());
     const reportsByWeek: ReportsByWeek[] = [];
 
     for(let i = firstWeek; i <= thisWeek; i++) {
@@ -209,6 +216,14 @@ export class AppUtil {
     }
     
     return reportsByWeek;
+  }
+
+  public static generateEmptyWeekReport(currentWeek: number): ReportsByWeek {
+    return {
+      week: currentWeek,
+      eggs: 0,
+      reports: []
+    }
   }
 
 

@@ -5,21 +5,5 @@
   flex: 1 1 auto;
   flex-direction: column;
   margin: 8px;
-}
-
-.report-week {
-  line-height: 0;
-  margin-top: 24px;
-  font-weight: 400;
-  margin-right: 8px;
-}
-
-button[mat-icon-button] {
-  margin: 16px;
-  background-color: $primary;
-}
-
-.empty-text {
-  padding: 16px;
-  font-style: italic;
+  overflow-y: auto;
 }

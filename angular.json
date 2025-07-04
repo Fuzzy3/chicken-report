@@ -40,7 +40,6 @@
               }
             ],
             "styles": [
-              "src/style/theme/app-theme.scss",
               "src/styles.scss",
               "src/style/global.scss"
             ],
@@ -107,7 +106,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/style/theme/app-theme.scss",
               "src/styles.scss",
               "src/style/global.scss"
             ],
